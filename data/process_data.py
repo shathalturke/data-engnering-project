@@ -4,6 +4,10 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    This load_data function:
+    takes paths to messages and categories CSV files, processes the data, and returns a merged dataframe with cleaned categories.
+    '''
     # load dataset
     categories = pd.read_csv(categories_filepath)
     messages = pd.read_csv(messages_filepath)
@@ -32,12 +36,18 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    '''
+    This clean_data function removes duplicate rows from the input dataframe df and returns the cleaned dataframe without duplicates.
+    '''
     # drop duplicates
     df = df.drop_duplicates()
     return df
     
 
 def save_data(df, database_filename):
+    '''
+    This save_data function saves the input dataframe df to an SQLite database specified by database_filename with table name 'DisasterResponse', replacing existing data.
+    '''
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('DisasterResponse', engine,if_exists = 'replace', index=False)  
 
