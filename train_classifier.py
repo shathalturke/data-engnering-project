@@ -26,6 +26,10 @@ def load_data(database_filepath):
     return X, y, category_names 
 
 def tokenize(text):
+    '''
+    This tokenize function takes raw text as input and performs several pre-processing steps,
+    including replacing URLs, tokenizing, and lemmatizing. The output is a list of clean tokens.
+    '''
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -43,6 +47,11 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    This build_model function creates a machine learning pipeline using CountVectorizer,
+    TfidfTransformer, and a RandomForestClassifier for multi-output classification. It then sets
+    parameters for grid search to optimize the model. The output is the trained model.
+    '''
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -59,11 +68,27 @@ def build_model():
 
 
 def evaluate_model(model, X_test, y_test, category_names):
+    '''
+    This evaluate_model function takes a trained model, test features (X_test), test labels (y_test),
+    and category names as input. It predicts labels for X_test and prints the classification report for each category.
+    '''
     y_pred = model.predict(X_test)
     class_report = classification_report(y_test, y_pred, target_names=category_names)
     print(class_report)
 
 def save_model(model, model_filepath):
+    '''
+
+This save_model function takes a trained model and a file path as input, then saves the model as a pickle file at the specified location.
+
+Input:
+
+model: Trained machine learning model.
+model_filepath: File path where the model should be saved.
+Output:
+
+A pickle file containing the serialized form of the trained model at the specified file path.
+    '''
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
