@@ -35,10 +35,10 @@ EADME
 README
 ~~~~~~~
 
-##installation
+## installation
 Must runing with Python 3 with libraries of numpy, pandas, sqlalchemy, re, NLTK, pickle, Sklearn, plotly and flask libraries.
 
-##File Descriptions
+## File Descriptions
 App folder including the templates folder and "run.py" for the web application
 Data folder containing "DisasterResponse.db", "disaster_categories.csv", "disaster_messages.csv" and "process_data.py" for data cleaning and transfering.
 Models folder including "classifier.pkl" and "train_classifier.py" for the Machine Learning model.
